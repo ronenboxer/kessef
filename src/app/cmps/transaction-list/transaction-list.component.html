@@ -1,0 +1,17 @@
+<section *ngIf="transactions" class="transaction-list">
+    <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet"
+            viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M2 8a1 1 0 0 1 1-1h18a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h18a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h12a1 1 0 1 0 0-2H3Z" />
+        </svg>
+        {{title}}
+    </h1>
+
+    <section *ngFor="let transaction of transactions" class="transaction-preview">
+        <h1 class="title">{{transaction.to ? 'To' : 'From'}}  {{(getTarget(transaction))!.name}}</h1>
+        <p class="amount"><span class="btc">&#8383; {{+transaction.amount.toLocaleString()}}</span> | <span class="usd">$ {{(+transaction.amount * +rate).toLocaleString()}}</span></p>
+        <p class="status">Status: <span>Approved</span></p>
+        <small class="date">{{transaction.at|date}}</small>
+    </section>
+</section>

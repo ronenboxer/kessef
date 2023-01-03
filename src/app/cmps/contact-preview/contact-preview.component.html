@@ -1,0 +1,8 @@
+<article [routerLink]="['/contact', contact._id]" class="contact-prerview">
+    <img class="contact-avatar" [src]="url" [alt]="initials" />
+    <div class="mini-details">
+        <h3 class="contact-name">{{contact.name}}</h3>
+        <p class="phone">{{contact.phone}}</p>
+        <p class="email">{{contact.email}}</p>
+    </div>
+</article>

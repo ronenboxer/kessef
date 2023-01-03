@@ -1,0 +1,7 @@
+<section *ngIf="contacts$">
+    <app-header></app-header>
+
+    <contact-list [contacts]="contacts$ | async"></contact-list>
+
+</section>
+<router-outlet></router-outlet>

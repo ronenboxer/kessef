@@ -1,0 +1,24 @@
+<div class="actions flex column center">
+    <app-header></app-header>
+
+    <div class="statistics-control">
+        <span class="label flex center">Duration</span>
+        <button>1 month</button>
+        <button>3 months</button>
+        <button>6 months</button>
+        <button> 1 year</button>
+        <button> 3 years</button>
+    </div>
+    <div class="statistics-control">
+        <span class="label flex center">Average</span>
+        <button>1 hour</button>
+        <button>1 day</button>
+        <button>1 week</button>
+        <button>2 weeks</button>
+        <button>30 days</button>
+    </div>
+    <chart-preview [chart$]="marketPrice$"></chart-preview>
+    <chart-preview [chart$]="tradeVolume$"></chart-preview>
+    <chart-preview [chart$]="avgBlockSize$"></chart-preview>
+
+</div>

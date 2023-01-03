@@ -1,0 +1,31 @@
+<section class="sign-page">
+    <h1>Welcome</h1>
+
+    <div class="sign">
+        <div class="actions">
+            <button [class]="{active:state==='signin'}" (click)="switchState('signin')">Sign in</button>
+            <button [class]="{active:state==='signup'}" (click)="switchState('signup')">Sign up</button>
+        </div>
+
+        <form #form="ngForm" (ngSubmit)="onSign(form)" class="credentials">
+            <div *ngIf="state==='signup'" class="flex between">
+                <label>Full name</label>
+                <input ngModel type="text" name="name" required />
+            </div>
+            <div class="flex between">
+                <label>Username</label>
+                <input ngModel type="text" name="username" required />
+            </div>
+            <div *ngIf="state==='signup'" class="flex between">
+                <label>Email</label>
+                <input ngModel type="email" name="email" />
+            </div>
+            <button *ngIf="state==='signin'; else signup" class="btn-submit">Sign in</button>
+            <ng-template #signup>
+                <button class="btn-submit">Sign up</button>
+    
+            </ng-template>
+        </form>
+
+    </div>
+</section>

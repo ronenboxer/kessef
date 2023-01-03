@@ -1,0 +1,7 @@
+<section class="home-page flex column center">
+    <app-header></app-header>
+
+    <chart-preview [chart$]="marketPrice$"></chart-preview>
+
+    <transaction-list [transactions]="transactions" [contacts]="contacts" [rate]="rate"></transaction-list>
+</section>
