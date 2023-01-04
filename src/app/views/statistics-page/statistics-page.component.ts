@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { of } from 'rxjs';
 import { BitcoinService } from 'src/app/services/bitcoin/bitcoin.service';
 
 @Component({
@@ -6,13 +7,25 @@ import { BitcoinService } from 'src/app/services/bitcoin/bitcoin.service';
   templateUrl: './statistics-page.component.html',
   styleUrls: ['./statistics-page.component.scss']
 })
-export class StatisticsPageComponent {
+export class StatisticsPageComponent implements OnInit {
 
   private bitcoinService = inject(BitcoinService)
 
-  marketPrice$ = this.bitcoinService.marketPrice$
-  tradeVolume$ =this.bitcoinService.tradeVolume$
-  avgBlockSize$=this.bitcoinService.avgBlockSize$
+  span = ''
+  avg = ''
 
+  ngOnInit(): void {
+    this.bitcoinService.requestProps$.subscribe(props => {
+      this.span = props.span.join('')
+      this.avg = props.avg.join('')
+    })
+  }
 
+  marketPrice$ = of(this.bitcoinService.marketPrice$)
+  tradeVolume$ = of(this.bitcoinService.tradeVolume$)
+  avgBlockSize$ = of(this.bitcoinService.avgBlockSize$)
+
+  onSetChartProp(prop: string, value: (string | number)[]) {
+    this.bitcoinService.setChartProps({[prop]: value})
+  }
 }

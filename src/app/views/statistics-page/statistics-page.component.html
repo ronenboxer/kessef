@@ -1,24 +1,25 @@
-<div class="actions flex column center">
+<div class="statistics-page">
     <app-header></app-header>
-
-    <div class="statistics-control">
-        <span class="label flex center">Duration</span>
-        <button>1 month</button>
-        <button>3 months</button>
-        <button>6 months</button>
-        <button> 1 year</button>
-        <button> 3 years</button>
+    <div class="actions flex column center">
+        <div class="statistics-control">
+            <span class="label flex center">Duration</span>
+            <button (click)="onSetChartProp('span',[1 ,'months'])" class="`flex center btn-statistics" [class]="{active: span==='1months'}">1 month</button>
+            <button (click)="onSetChartProp('span',[3 ,'months'])" class="`flex center btn-statistics" [class]="{active: span==='3months'}">3 months</button>
+            <button (click)="onSetChartProp('span',[6 ,'months'])" class="`flex center btn-statistics" [class]="{active: span==='6months'}">6 months</button>
+            <button (click)="onSetChartProp('span',[1 ,'years'])" class="`flex center btn-statistics" [class]="{active: span==='1years'}"> 1 year</button>
+            <button (click)="onSetChartProp('span',[3 ,'years'])" class="`flex center btn-statistics" [class]="{active: span==='3years'}"> 3 years</button>
+        </div>
+        <div class="statistics-control">
+            <span class="label flex center">Average</span>
+            <button (click)="onSetChartProp('avg',[1 ,'hours'])" class="`flex center btn-statistics" [class]="{active: avg==='1hours'}">1 hour</button>
+            <button (click)="onSetChartProp('avg',[1 ,'days'])" class="`flex center btn-statistics" [class]="{active: avg==='1days'}">1 day</button>
+            <button (click)="onSetChartProp('avg',[1 ,'weeks'])" class="`flex center btn-statistics" [class]="{active: avg==='1weeks'}">1 week</button>
+            <button (click)="onSetChartProp('avg',[2 ,'weeks'])" class="`flex center btn-statistics" [class]="{active: avg==='2weeks'}">2 weeks</button>
+            <button (click)="onSetChartProp('avg',[30 ,'days'])" class="`flex center btn-statistics" [class]="{active: avg==='30days'}">30 days</button>
+        </div>
     </div>
-    <div class="statistics-control">
-        <span class="label flex center">Average</span>
-        <button>1 hour</button>
-        <button>1 day</button>
-        <button>1 week</button>
-        <button>2 weeks</button>
-        <button>30 days</button>
-    </div>
-    <chart-preview [chart$]="marketPrice$"></chart-preview>
-    <chart-preview [chart$]="tradeVolume$"></chart-preview>
-    <chart-preview [chart$]="avgBlockSize$"></chart-preview>
+    <chart-preview *ngIf="marketPrice$" [chart$]="marketPrice$ | async"></chart-preview>
+    <chart-preview *ngIf="tradeVolume$" [chart$]="tradeVolume$ | async"></chart-preview>
+    <chart-preview *ngIf="avgBlockSize$" [chart$]="avgBlockSize$ | async"></chart-preview>
 
 </div>

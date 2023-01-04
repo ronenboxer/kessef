@@ -19,7 +19,7 @@ export class UserSignComponent implements OnInit {
   state = 'signin'
 
   ngOnInit() {
-    if (this.authService.checkLoggedIn()) this.router.navigateByUrl('/')
+    if (this.authService.getLoggedInUser()) this.router.navigateByUrl('/')
   }
 
   switchState(state = 'signin') { this.state = state }

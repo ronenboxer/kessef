@@ -7,8 +7,7 @@
                     d="M5 21V6H4V4h5V3h6v1h5v2h-1v15Zm2-2h10V6H7Zm2-2h2V8H9Zm4 0h2V8h-2ZM7 6v13Z" />
             </svg></button>
     </div>
-    <!-- <pre>{{form.value|json}}</pre> -->
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="onSaveContact()">
         <!-- <img class="avatar" *ngIf="contact._id && contact.name; else initials" [src]="url" [alt]="initials" />
         <ng-template #initials>
 

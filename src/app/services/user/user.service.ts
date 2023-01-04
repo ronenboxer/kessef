@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
 import { User } from '../../model/user.model'
+import { AuthService } from '../auth/auth.service';
 
 const USER_STORAGE_KEY = 'userDB'
-const LOGGED_IN_STORAGE_KEY = 'loggedInUser'
 
 const USERS: User[] = JSON.parse(localStorage.getItem(USER_STORAGE_KEY) as string) || [{
   _id: "5a56640269f443a5d64b32ca",
@@ -244,15 +244,13 @@ localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(USERS))
 })
 export class UserService {
 
+  // private authService = inject(AuthService)
   public userDB: User[] = USERS
-  private _users$ = new BehaviorSubject<User[]>([])
+  private _users$ = new BehaviorSubject<User[]>(this.userDB)
   public users$ = this._users$.asObservable()
 
-  constructor() { }
-
-  public query(filterBy: { term: string, excludedIds: string[] }): void {
-
-  }
+  // public query(filterBy: { term: string, excludedIds: string[] }): void {
+  // }
 
   public getById(id: string): Observable<User> {
     const user = this.userDB.find(anyUser => anyUser._id === id)
@@ -268,21 +266,37 @@ export class UserService {
   }
 
   public save(user: User) {
-    if (this.userDB.find(anyUser => anyUser.username === user.username)) return new Error(`User ${user.username} already exists`)
     return user._id
       ? this._update(user)
       : this._add(user)
   }
 
-  public _add(user: User): User {
+  public transfer(user: User, amount: number, targetId: string) {
+    if (user.balance < +amount || +amount <= 0) return user
+    const target = this.userDB.find(anyUser => anyUser._id === targetId)
+    if (!target) return user
+    user.balance -= +amount
+    user.transfers.push({ to: target._id, amount, at: Date.now() })
+    target.balance += +amount
+    if (!target.transfers) target.transfers = []
+    target.transfers.push({ from: user._id, amount, at: Date.now() })
+    this.save(user)
+    this.save(target)
+    return user
+  }
+  private _add(user: User) {
+    if (this.userDB.find(anyUser => anyUser.username === user.username)) return null
     user._id = getRandomId()
+    user.balance = 100
+    user.transfers = []
     this.userDB.push(user)
     this._users$.next(this.userDB)
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(this.userDB))
     return user
   }
-  public _update(user: User): User {
-    this.userDB = this.userDB.map(anyUser => anyUser._id !== user._id 
+  private _update(user: User) {
+    if (this.userDB.find(anyUser => anyUser.username === user.username && anyUser._id !== user._id)) return null
+    this.userDB = this.userDB.map(anyUser => anyUser._id !== user._id
       ? anyUser
       : user)
     this._users$.next(this.userDB)

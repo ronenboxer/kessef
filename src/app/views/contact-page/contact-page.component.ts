@@ -1,6 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Contact } from 'src/app/model/contact.model';
+import { Component, inject } from '@angular/core';
 import { ContactService } from 'src/app/services/contact/contact.service';
 
 @Component({
@@ -8,12 +6,15 @@ import { ContactService } from 'src/app/services/contact/contact.service';
   templateUrl: './contact-page.component.html',
   styleUrls: ['./contact-page.component.scss']
 })
-export class ContactPageComponent implements OnInit {
- private contactService = inject(ContactService)
+export class ContactPageComponent {
+  private contactService = inject(ContactService)
 
-contacts$!: Observable<Contact[]>
+  contacts$ = this.contactService.contacts$
+  term = ''
 
- ngOnInit(): void {
-   this.contacts$ = this.contactService.contacts$
- }
+  onSetFilter(ev: any): void {
+    this.term = ev?.target?.value || ''
+    this.contactService.filterBy = {...this.contactService.filterBy, term:this.term}
+    this.contactService.query()
+  }
 }

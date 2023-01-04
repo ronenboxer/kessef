@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+// Setup
+@import "./assets/style/setup/variables";
+@import "./assets/style/setup/functions";
+@import "./assets/style/setup/mixins";
+@import "./assets/style/setup/typography";
+
+// Basics
+@import "./assets/style/basics/helpers";
+@import "./assets/style/basics/layout";
+@import "./assets/style/basics/base";
+@import "./assets/style/basics/links";
+
+// Components
+@import "./assets/style/cmps/app-header";
+@import "./assets/style/cmps/contact-list";
+@import "./assets/style/cmps/contact-preview";
+@import "./assets/style/cmps/chart";
+@import "./assets/style/cmps/transaction-list";
+
+// Pages
+@import "./assets/style/pages/home-page";
+@import "./assets/style/pages/contact-page";
+@import "./assets/style/pages/contact-details";
+@import "./assets/style/pages/contact-edit";
+@import "./assets/style/pages/sign-page";
+@import "./assets/style/pages/statistics-page";

@@ -137,17 +137,16 @@ export class ContactService {
 
     //mock the server
     private _contactDB: Contact[] = CONTACTS;
-
-    private _contacts$ = new BehaviorSubject<Contact[]>([])
-    public contacts$ = this._contacts$.asObservable()
+    private _contacts$ = new BehaviorSubject<Contact[]>(this._contactDB)
     private _contacts: Contact[] = []
 
+    public contacts$ = this._contacts$.asObservable()
+    public filterBy = {excludedIds:[''], term:''}
 
-
-    public query(filterBy?: { term: string, excludedIds: string[] }): void {
+    public query(filterBy: { term?: string, excludedIds?: string[] } = this.filterBy): void {
         let contacts = this._contactDB;
         if (filterBy?.term) contacts = this._filter(contacts, filterBy.term)
-        if (filterBy?.excludedIds?.length) contacts = contacts.filter(contact => contact._id && !filterBy.excludedIds.includes(contact._id))
+        if (filterBy?.excludedIds?.length) contacts = contacts.filter(contact => contact._id && !filterBy.excludedIds?.includes(contact._id))
         const contactCount = contacts.length
         contacts = this._sort(contacts).map((contact, idx) => {
             const prevId = contacts[(idx + contactCount - 1) % contactCount]._id

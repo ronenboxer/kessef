@@ -1,0 +1,45 @@
+.app-header {
+    width: 100vw;
+
+    .main-nav {
+        padding-inline: $layout-margin;
+        height: 60px;
+
+        >section{
+            height: 100%;
+        }
+        .spacer{
+            flex-grow: 1;
+        }
+        a {
+            color: white;
+            font-size: rem(18px);
+            padding: 5px 10px;
+            height: inherit;
+            width: 130px;
+            text-align: center;
+
+            &.active {
+                background-color: #15151590;
+                color: $primary-gold;
+            }
+            
+            &.logo{
+                font-size: rem(26px);
+            }
+
+            &:hover {
+                text-decoration: none;
+                color: $primary-gold;
+                background-color: #ffffff50;
+            }
+            
+            svg {
+                max-height: 100%;
+
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}

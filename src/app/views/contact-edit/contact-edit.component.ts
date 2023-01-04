@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 import { Contact } from 'src/app/model/contact.model';
 import { ContactService } from 'src/app/services/contact/contact.service';
 
@@ -16,26 +17,23 @@ export class ContactEditComponent implements OnInit {
 
   private contactService = inject(ContactService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private location = inject(Location);
 
   constructor(private fb: FormBuilder) {
 
   }
 
-
   ngOnInit() {
     this.route.data.subscribe(({ contact }) => {
       this.contact = contact || this.contactService.new()
       this.form = this.fb.group(contact)
-      console.log(`contact`, contact)
     })
-
   }
 
-  async onSaveContact(form: NgForm) {
-    console.log(`form.value`, form.value)
-    // this.contact = await lastValueFrom(this.contactService.save(this.contact));
-    // this.router.navigate(['/contact', this.contact._id])
+  async onSaveContact() {
+    this.contact = await lastValueFrom(this.contactService.save({...this.contact, ...this.form.value}));
+    this.router.navigateByUrl('/contact/'+ this.contact._id)
   }
 
   onBack() {

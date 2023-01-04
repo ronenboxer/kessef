@@ -22,11 +22,12 @@ export class AuthService {
       ? this.userService.userDB.find(anyUser => anyUser.username === username) as User
       : null
     sessionStorage.setItem(LOGGED_IN_STORAGE_KEY, JSON.stringify(user || null))
+    this._loggedInUser = user
     this._loggedInUser$.next(user)
     return user
   }
 
-  checkLoggedIn() {
+  getLoggedInUser() {
     return this._loggedInUser
   }
 }

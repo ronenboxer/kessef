@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    // background-color: $clr1;
+    // color: $clr6;
+}
+
+html {
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    // color: $clr2;
+}
+
+body {
+    font-size: rem(16px);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-image: url(../../imgs/bg5.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color:white;
+    font-family: dosis, sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+h1, h2, h3, h4, h5, h6{
+    // margin: 0 0 0.6em;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+
+section, main, footer, div, header, nav ,p{
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button{
+    font-family: dosis;
+}
+

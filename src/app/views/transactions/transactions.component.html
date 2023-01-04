@@ -1,4 +1,4 @@
 <section class="transactions-page">
     <app-header></app-header>
-
+    <transaction-list *ngIf="user" [contacts]="contacts" [rate]="rate" [transactions]="user.transfers"></transaction-list>
 </section>

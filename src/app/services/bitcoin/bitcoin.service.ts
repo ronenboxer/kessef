@@ -20,22 +20,30 @@ export class BitcoinService {
   private _tradeVolume$ = new BehaviorSubject<BitcoinChart>({} as BitcoinChart)
   private _avgBlockSize$ = new BehaviorSubject<BitcoinChart>({} as BitcoinChart)
   private _rate$ = new BehaviorSubject<number>(1)
+  private _requestProps$ = new BehaviorSubject<any>({
+    currency: 'USD',
+    span: [6, 'months'],
+    avg: [1, 'days']
+  })
 
   public marketPrice$ = this._marketPrice$.asObservable()
   public tradeVolume$ = this._tradeVolume$.asObservable()
   public avgBlockSize$ = this._avgBlockSize$.asObservable()
   public rate$ = this._rate$.asObservable()
+  public requestProps$ = this._requestProps$.asObservable()
 
-  query(span = 'timespan=6months', avg = 'rollingAverage=1days') {
-    this._getMarketPrice(span, avg)
-    this._getTradeVolume(span, avg)
-    this._getAvgBlockSize(span, avg)
+
+  query() {
+    this._getMarketPrice()
+    this._getTradeVolume()
+    this._getAvgBlockSize()
   }
 
-  public getRate(currency = 'USD'){
+  public getRate() {
+    const { currency } = this._requestProps$.value
     this.http.get(RATE_DATA)
       .pipe(
-        map((res:any) => {
+        map((res: any) => {
           if (res[currency]) return res[currency].last
           return res!.USD!.last
         })
@@ -43,8 +51,17 @@ export class BitcoinService {
       .subscribe(rate => this._rate$.next(rate))
   }
 
-  _getMarketPrice(span = 'timespan=6months', avg = 'rollingAverage=1days') {
-    this.http.get<{ values: [{ x: number, y: number }] }>(MARKET_PRICE_DATA + `${span}&${avg}`)
+  public async setChartProps(props: { currency?: string, span?: (string | number)[], avg?: (string | number)[] }) {
+    this._requestProps$.next({
+      ...this._requestProps$.value,
+      ...props
+    })
+    this.query()
+  }
+
+  _getMarketPrice() {
+    const { span, avg } = this._requestProps$.value
+    this.http.get<{ values: [{ x: number, y: number }] }>(MARKET_PRICE_DATA + `timespan=${span.join('')}&rollingAverage=${avg.join('')}`)
       .pipe(
         map(({ values }) => values.map(({ x, y }) => ({ name: new Date(x * 1000).toLocaleDateString(), value: y })))
       ).subscribe(
@@ -59,13 +76,12 @@ export class BitcoinService {
             x: 'Timespan',
             y: 'USD'
           })
-        },
-        console.log,
-        () => { console.log(`market chart`) }
+        }
       )
   }
-  _getTradeVolume(span = 'timespan=6months', avg = 'rollingAverage=1days') {
-    this.http.get<{ values: [{ x: number, y: number }] }>(TRADE_VOLUME_DATA + `${span}&${avg}`)
+  _getTradeVolume() {
+    const { span, avg } = this._requestProps$.value
+    this.http.get<{ values: [{ x: number, y: number }] }>(TRADE_VOLUME_DATA + `timespan=${span.join('')}&rollingAverage=${avg.join('')}`)
       .pipe(
         map(({ values }) => values.map(({ x, y }) => ({ name: new Date(x * 1000).toLocaleDateString(), value: y })))
       ).subscribe(
@@ -80,13 +96,12 @@ export class BitcoinService {
             x: 'Timespan',
             y: 'USD'
           })
-        },
-        console.log,
-        () => { console.log(`trade chart`) }
+        }
       )
   }
-  _getAvgBlockSize(span = 'timespan=6months', avg = 'rollingAverage=1days') {
-    return this.http.get<{ values: [{ x: number, y: number }] }>(AVG_BLOCK_SIZE_DATA + `${span}&${avg}`)
+  _getAvgBlockSize() {
+    const { span, avg } = this._requestProps$.value
+    return this.http.get<{ values: [{ x: number, y: number }] }>(AVG_BLOCK_SIZE_DATA + `timespan=${span.join('')}&rollingAverage=${avg.join('')}`)
       .pipe(
         map(({ values }) => values.map(({ x, y }) => ({ name: new Date(x * 1000).toLocaleDateString(), value: y })))
       ).subscribe(
@@ -101,20 +116,8 @@ export class BitcoinService {
             x: 'Timespan',
             y: 'MB'
           })
-        },
-        console.log,
-        () => { console.log(`block chart`) }
+        }
       )
   }
 
-}
-
-interface Rate {
-  object: {
-    "15m": number,
-    "last": number,
-    "buy": number,
-    "sell": number,
-    "symbol": string
-    }
 }

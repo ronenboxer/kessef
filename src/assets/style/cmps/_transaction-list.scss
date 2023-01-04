@@ -1,0 +1,64 @@
+.transaction-list {
+    margin-block: 50px;
+    width: 100vw;
+
+    >h1 {
+        padding-inline: $layout-margin;
+        font-size: 1.75rem;
+        margin-bottom: 10px;
+
+        svg {
+            margin-inline-end: 10px;
+        }
+    }
+
+    .transaction-preview {
+
+        color: white;
+        background-color: #00000045;
+        border-block: 1px outset #66666679;
+        padding: 10px $layout-margin;
+        cursor: pointer;
+
+        &:hover {
+            color: $primary-gold;
+            background-color: #00000060;
+
+            .contact-avatar {
+                opacity: .75;
+            }
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
+
+        .amount {
+            font-size: 1.45rem;
+            .btc {
+                color: $bit-green;
+                margin-inline-end: 5px;
+            }
+
+            .usd {
+                color: #8799b9;
+                margin-inline-start: 5px;
+            }
+        }
+
+        .status {
+            font-size: 1rem;
+
+            span {
+                color: #5569b9;
+            }
+        }
+
+        .date {
+            color: #8799b9;
+            font-size: 1rem;
+        }
+    }
+}

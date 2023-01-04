@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Contact } from 'src/app/model/contact.model';
 import { Transfer } from 'src/app/model/transfer.model';
+import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { BitcoinService } from 'src/app/services/bitcoin/bitcoin.service';
 import { ContactService } from 'src/app/services/contact/contact.service';
@@ -17,13 +18,15 @@ export class HomePageComponent implements OnInit {
   private contactService = inject(ContactService)
 
   marketPrice$ = this.bitcoinService.marketPrice$
-  // user$ = this.authService.loggedInUser$
+  user!: User
   transactions: Transfer[] = []
   contacts: Contact[] = []
   rate: number = 1
 
   ngOnInit() {
     this.authService.loggedInUser$.subscribe(user => {
+      if (!user) return
+      this.user = user
       this.transactions = user!.transfers!.length > 5
         ? user!.transfers.slice(-5)
         : user?.transfers

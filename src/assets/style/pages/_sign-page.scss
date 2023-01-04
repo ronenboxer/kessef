@@ -1,0 +1,79 @@
+.sign-page {
+    width: 100%;
+    background: $black-bgc-dark;
+    padding: 30px $layout-margin;
+    font-size: rem(18px);
+
+    * {
+        font-size: rem(18px);
+    }
+
+    .action {
+        width: 75vw;
+        max-width: 400px;
+
+        .btn-sign {
+            @include transparent(white);
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 50%;
+            padding-block: 10px;
+
+            &:hover:not(.active) {
+                background-color: #ffffff50;
+            }
+
+            &.active {
+                color: $primary-gold;
+                cursor: unset;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .credentials {
+        width: 100%;
+        padding: 10px;
+        border: .8px solid white;
+
+        div {
+            width: 100%;
+            gap: 10px;
+
+            &:not(:last-child) {
+                margin-bottom: 5px;
+            }
+
+            * {
+                display: inline-block;
+                width: 50%;
+            }
+
+            label {
+                padding-inline-start: 10px;
+                margin-top: 5.4px;
+            }
+
+            input {
+                @include transparent(white);
+                border-bottom: .8px solid white;
+                padding-inline-end: 10px;
+                height: calc(18px * 1.6);
+            }
+        }
+    }
+
+    .btn-submit {
+        width: 75vw;
+        max-width: 400px;
+        @include transparent($primary-gold);
+        cursor: pointer;
+        margin-top: 20px;
+
+        padding-block: 10px;
+
+        &:hover:not(.active) {
+            background-color: #ffffff50;
+        }
+    }
+}

@@ -1,0 +1,70 @@
+.edit-contact {
+    .actions {
+        padding-inline: $layout-margin;
+        background-color: $black-bgc-dark;
+        height: 27px;
+
+        .btn {
+            @include transparent(white);
+            font-size: 1rem;
+            font-weight: normal;
+            cursor: pointer;
+            &:hover {
+                color: $primary-gold;
+            }
+        }
+    }
+
+    form {
+        margin-top: 28.4px;
+        text-align: center;
+
+        .avatar {
+            @include round(35vw);
+            width: 35vw;
+            min-width: 164px;
+            max-width: 275px;
+            height: 35vw;
+            max-height: 275px;
+            min-height: 164px;
+            padding: 3px;
+            background-color: rgba($color: #fff, $alpha: .5);
+            overflow: hidden;
+            color: black;
+            font-size: 3rem;
+            margin: auto;
+        }
+
+        input {
+            @include pill(10px);
+            width: 60vw;
+            max-width: 350px;
+            margin: 2rem auto;
+            background-color: #00000045;
+            border: none;
+            outline: none;
+            color: white;
+            
+            &:focus{
+                color: $primary-gold;
+            }
+        }
+        
+        .btn{
+            @include round(33.5px);
+            margin: auto;
+            margin: 2rem auto;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            outline: none;
+            color: black;
+            font-size: 2em;
+            cursor: pointer;
+
+            &:hover{
+                background-color: $primary-gold;
+                opacity: .8;
+            }
+        }
+    }
+}

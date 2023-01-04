@@ -1,9 +1,10 @@
-<section class="chart" *ngIf="multi?.[0]?.name">
+<section class="chart" *ngIf="chart$ && multi?.[0]?.name">
     <h1 class="chart-title" [style]="{color:fill}">{{title}}</h1>
     <p class="chart-description">{{description}}</p>
-    <ngx-charts-area-chart [scheme]="colorScheme" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+    <div class="chart-container">
+      <ngx-charts-area-chart [scheme]="colorScheme" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
         [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [results]="multi"
-        [autoScale]="true" [timeline]="true" [gradient]="true" >
+        [autoScale]="true" [timeline]="true" [gradient]="true" [rotateXAxisTicks]="false" [xAxisTicks]="xAxisTicks">
         <!-- <ng-template #tooltipTemplate let-model="model">
             This is the single point tooltip template
           </ng-template> -->
@@ -11,5 +12,6 @@
             This is vertical line tooltip template      
           </ng-template> -->
     </ngx-charts-area-chart>
+    </div>
 
 </section>

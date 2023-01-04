@@ -1,0 +1,43 @@
+.home-page {
+    width: 100vw;
+
+    .details {
+        width: 100%;
+        background-color: $black-bgc-dark;
+        padding: 10px $layout-margin;
+
+        .user-name {
+            padding-block: 5px;
+            border-bottom: 1px solid #99999966;
+            margin-bottom: 5px;
+        }
+
+        .sub-header {
+            color: #666;
+        }
+
+        .user-stats {
+            .balance {
+                .bitcoin mark {
+                    background: none;
+                    color: $bit-green;
+                }
+
+                .usd mark {
+                    background: none;
+                    color: #8799b9;
+                }
+            }
+        }
+
+
+        .rate {
+            text-align: end;
+
+            .curr-rate {
+                font-size: rem(30.8px);
+            }
+        }
+    }
+
+}

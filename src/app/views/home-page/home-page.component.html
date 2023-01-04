@@ -1,6 +1,19 @@
 <section class="home-page flex column center">
     <app-header></app-header>
-
+    <div class="details">
+        <h1 class="user-name capitalize">Hi {{user.name}}</h1>
+        <section class="user-stats flex between">
+            <div class="balance">
+                <h5 class="sub-header">Current balance</h5>
+                <p class="upper bitcoin">Bit: <mark>&#8383; {{user.balance.toLocaleString()}}</mark></p>
+                <p class="upper usd">Usd: <mark>$ {{user.balance*rate}}</mark></p>
+            </div>
+            <div class="rate">
+                <h5 class="sub-header">Current BTC USD</h5>
+                <p class="curr-rate">$ {{rate.toLocaleString()}}</p>
+            </div>
+        </section>
+    </div>
     <chart-preview [chart$]="marketPrice$"></chart-preview>
 
     <transaction-list [transactions]="transactions" [contacts]="contacts" [rate]="rate"></transaction-list>

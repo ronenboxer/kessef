@@ -40,14 +40,14 @@
             <h2 class="name">{{contact.name}}</h2>
             <h3 class="phone">{{contact.phone}}</h3>
             <h3 class="email">{{contact.email}}</h3>
-            <!-- <form class="transfer flex" onSubmit={transferFunds}>
-                <input type="number" onChange={updateFunds} value={funds} placeholder={`Max: BTC ${balance.toLocaleString()}`} />
+            <form #form="ngForm" (ngSubmit)="onTransfer(form)" class="transfer flex" >
+                <input ngModel name="amount" type="number" [placeholder]="'Max: BTC '+balance" required/>
                 <button>Transfer</button>
-            </form> -->
+            </form>
         </div>
     </div>
 
-    <!-- <TransactionList transactions={user.transfers.filter(transfer => transfer.to === params.id || transfer.from === params.id)} contacts={contacts} rate={rate} title={'Transactions history'} /> -->
+    <transaction-list [contacts]="[contact]" [rate]="rate" [transactions]="transactions"></transaction-list>
 </section>
 
 <router-outlet></router-outlet>

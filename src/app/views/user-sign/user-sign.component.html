@@ -1,10 +1,10 @@
-<section class="sign-page">
+<section class="sign-page column flex center absolute center">
     <h1>Welcome</h1>
 
     <div class="sign">
-        <div class="actions">
-            <button [class]="{active:state==='signin'}" (click)="switchState('signin')">Sign in</button>
-            <button [class]="{active:state==='signup'}" (click)="switchState('signup')">Sign up</button>
+        <div class="action">
+            <button [class]="{active:state==='signin'}" class="btn-sign" (click)="switchState('signin')">Sign in</button>
+            <button [class]="{active:state==='signup'}" class="btn-sign" (click)="switchState('signup')">Sign up</button>
         </div>
 
         <form #form="ngForm" (ngSubmit)="onSign(form)" class="credentials">
