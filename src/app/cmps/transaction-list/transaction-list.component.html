@@ -9,7 +9,7 @@
     </h1>
 
     <section *ngFor="let transaction of transactions" class="transaction-preview" [routerLink]="['/contact',(getTarget(transaction))!._id]">
-        <h1 class="title">{{transaction.to ? 'To' : 'From'}}  {{(getTarget(transaction))!.name}}</h1>
+        <h1 class="title">{{transaction.to ? 'To' : 'From'}}  {{(getTarget(transaction))?.name}}</h1>
         <p class="amount"><span class="btc">&#8383; {{+transaction.amount.toLocaleString()}}</span> | <span class="usd">$ {{(+transaction.amount * +rate).toLocaleString()}}</span></p>
         <p class="status">Status: <span>Approved</span></p>
         <small class="date">{{transaction.at|date}}</small>

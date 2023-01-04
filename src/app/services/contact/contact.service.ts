@@ -141,19 +141,13 @@ export class ContactService {
     private _contacts: Contact[] = []
 
     public contacts$ = this._contacts$.asObservable()
-    public filterBy = {excludedIds:[''], term:''}
+    public filterBy = { excludedIds: [''], term: '' }
 
     public query(filterBy: { term?: string, excludedIds?: string[] } = this.filterBy): void {
         let contacts = this._contactDB;
         if (filterBy?.term) contacts = this._filter(contacts, filterBy.term)
         if (filterBy?.excludedIds?.length) contacts = contacts.filter(contact => contact._id && !filterBy.excludedIds?.includes(contact._id))
-        const contactCount = contacts.length
-        contacts = this._sort(contacts).map((contact, idx) => {
-            const prevId = contacts[(idx + contactCount - 1) % contactCount]._id
-            const nextId = contacts[(idx + contactCount + 1) % contactCount]._id
-            const initials = contact.name.trim().split(' ').map(name => name.charAt(0)).join('').toUpperCase()
-            return { ...contact, prevId, nextId, initials }
-        })
+        contacts = this._sort(contacts)
         this._contacts = contacts
         this._contacts$.next(this._sort(contacts))
     }
@@ -200,14 +194,16 @@ export class ContactService {
     private _add(contact: Contact) {
         //mock the server work
         const newContact = new Contact(contact.name, contact.email, contact.phone);
-        if (typeof newContact.setId === 'function') newContact.setId(getRandomId());
+        newContact._id = getRandomId();
         this._contactDB.push(newContact)
-        this._contacts$.next(this._sort(this._contactDB))
+        this._contactDB = this._sort(this._contactDB)
+        this._contacts$.next(this._contactDB)
         localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(this._contactDB))
-        return of(newContact)
+        return of(this._contactDB.find(anyContact => anyContact._id === newContact._id)!)
     }
 
     private _sort(contacts: Contact[]): Contact[] {
+        const contactCount = contacts.length
         return contacts.sort((a, b) => {
             if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
                 return -1;
@@ -217,6 +213,11 @@ export class ContactService {
             }
 
             return 0;
+        }).map((contact, idx) => {
+            const prevId = contacts[(idx + contactCount - 1) % contactCount]._id
+            const nextId = contacts[(idx + contactCount + 1) % contactCount]._id
+            const initials = contact.name.trim().split(' ').map(name => name.charAt(0)).join('').toUpperCase()
+            return { ...contact, prevId, nextId, initials }
         })
     }
 

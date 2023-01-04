@@ -3,10 +3,10 @@ import { Transfer } from "./transfer.model";
 export class Contact {
 
     constructor(
-        public _id?: string,
         public name: string = '',
-        public phone: string = '',
         public email: string = '',
+        public phone: string = '',
+        public _id?: string,
         public nextId?: string,
         public prevId?: string
         ) { }

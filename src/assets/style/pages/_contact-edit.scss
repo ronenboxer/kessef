@@ -1,69 +1,83 @@
 .edit-contact {
-    .actions {
-        padding-inline: $layout-margin;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000088;
+    top: 0;
+    .modal-container {
+
+        margin-inline: $layout-margin;
         background-color: $black-bgc-dark;
-        height: 27px;
-
-        .btn {
-            @include transparent(white);
-            font-size: 1rem;
-            font-weight: normal;
-            cursor: pointer;
-            &:hover {
-                color: $primary-gold;
-            }
-        }
-    }
-
-    form {
-        margin-top: 28.4px;
-        text-align: center;
-
-        .avatar {
-            @include round(35vw);
-            width: 35vw;
-            min-width: 164px;
-            max-width: 275px;
-            height: 35vw;
-            max-height: 275px;
-            min-height: 164px;
-            padding: 3px;
-            background-color: rgba($color: #fff, $alpha: .5);
-            overflow: hidden;
-            color: black;
-            font-size: 3rem;
-            margin: auto;
-        }
-
-        input {
-            @include pill(10px);
-            width: 60vw;
-            max-width: 350px;
-            margin: 2rem auto;
-            background-color: #00000045;
-            border: none;
-            outline: none;
-            color: white;
+        margin-top: calc(35vw + 135.4px);
+        box-shadow: 0 0 20px .5px rgba(186, 186, 186, 0.5);
+        border-radius: 10px;
+        .actions {
+            padding-inline: $layout-margin;
+            padding-top: 20px;
+            height: 27px;
             
-            &:focus{
-                color: $primary-gold;
+            .btn {
+                @include transparent(white);
+                font-size: 1rem;
+                font-weight: normal;
+                cursor: pointer;
+                
+                &:hover {
+                    color: $primary-gold;
+                }
             }
         }
         
-        .btn{
-            @include round(33.5px);
-            margin: auto;
-            margin: 2rem auto;
-            background-color: rgba(255, 255, 255, 0.5);
-            border: none;
-            outline: none;
-            color: black;
-            font-size: 2em;
-            cursor: pointer;
+        form {
+            margin-top: 28.4px;
+            text-align: center;
+            
+            .avatar {
+                @include round(35vw);
+                width: 35vw;
+                min-width: 164px;
+                max-width: 275px;
+                height: 35vw;
+                max-height: 275px;
+                min-height: 164px;
+                padding: 3px;
+                background-color: rgba($color: #fff, $alpha: .5);
+                overflow: hidden;
+                color: black;
+                font-size: 3rem;
+                margin: auto;
+            }
+            
+            input {
+                @include pill(10px);
+                box-shadow: 0 0 20px .5px rgba(186, 186, 186, 0.5);
+                width: 60vw;
+                max-width: 350px;
+                margin: 2rem auto;
+                background-color: #00000045;
+                border: none;
+                outline: none;
+                color: white;
 
-            &:hover{
-                background-color: $primary-gold;
-                opacity: .8;
+                &:focus {
+                    color: $primary-gold;
+                }
+            }
+
+            .btn {
+                @include round(33.5px);
+                margin: auto;
+                margin: 2rem auto;
+                background-color: rgba(255, 255, 255, 0.5);
+                border: none;
+                outline: none;
+                color: black;
+                font-size: 2em;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $primary-gold;
+                    opacity: .8;
+                }
             }
         }
     }

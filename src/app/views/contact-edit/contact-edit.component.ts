@@ -27,7 +27,7 @@ export class ContactEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(({ contact }) => {
       this.contact = contact || this.contactService.new()
-      this.form = this.fb.group(contact)
+      this.form = this.fb.group(this.contact)
     })
   }
 

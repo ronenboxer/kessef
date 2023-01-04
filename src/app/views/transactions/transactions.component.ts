@@ -21,7 +21,9 @@ export class TransactionsComponent implements OnInit {
   rate: number = 1
 
   ngOnInit() {
-    this.authService.loggedInUser$.subscribe(user => this.user = user)
+    this.authService.loggedInUser$.subscribe(user => {
+      console.log(`user.transfers`, user!.transfers)
+      this.user = user})
     this.contactService.contacts$.subscribe(contacts => this.contacts = contacts)
     this.bitcoinService.rate$.subscribe(rate => this.rate = rate)
   }

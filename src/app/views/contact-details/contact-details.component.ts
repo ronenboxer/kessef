@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterContentInit, Component, inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contact } from 'src/app/model/contact.model';
@@ -17,44 +17,48 @@ import { UserService } from 'src/app/services/user/user.service';
 export class ContactDetailsComponent implements OnInit {
 
   private bitcoinService = inject(BitcoinService)
+  private contactService = inject(ContactService)
   private authService = inject(AuthService)
   private userService = inject(UserService)
   private route = inject(ActivatedRoute)
   private router = inject(Router)
 
   contact!: Contact;
+  contacts$ = this.contactService.contacts$
   user: User | null = null;
   transactions!: Transfer[];
   rate = 1;
   balance!: string
+  amount: number|string = ''
 
   ngOnInit(): void {
+    this.contacts$.subscribe(contacts => {
+      this.contact = contacts.find(anyContact => anyContact._id === this.contact?._id) as Contact
+    })
     this.route.data.subscribe(({ contact }) => {
       this.contact = contact
-      this.transactions = this.user?.transfers.filter(transfer => transfer.to === this.contact._id || transfer.from === this.contact._id) || []
+      this.transactions = this.user?.transfers.filter(transfer => transfer.to === this.contact?._id || transfer.from === this.contact?._id) || []
     })
     this.authService.loggedInUser$.subscribe(user => {
       this.user = user
       this.balance = user!.balance.toLocaleString()
+      this.transactions = this.user?.transfers.filter(transfer => transfer.to === this.contact?._id || transfer.from === this.contact?._id) || []
     })
     this.bitcoinService.rate$.subscribe(rate => this.rate = rate)
   }
 
-  onBack() {
+  onDelete() {
+
     this.router.navigateByUrl('/contact')
   }
 
-  onDelete() {
-
-  }
-
-  onTransfer(form: NgForm) {
-    const { amount } = form.value
+  onTransfer() {
     const { balance } = this.user!
-    if (amount > +balance || +balance <= 0) return
-    const user = this.userService.transfer({ ...this.user! }, amount, this.contact._id!)
-    debugger
+    if (this.amount > +balance || +balance <= 0) return
+    const user = this.userService.transfer({ ...this.user! }, +this.amount, this.contact?._id!)
     this.authService.sign(user.username)
+    this.router.navigateByUrl('/contact/' + this.contact?._id)
+    this.amount = ''
   }
 
   get initials() {

@@ -237,6 +237,7 @@ const USERS: User[] = JSON.parse(localStorage.getItem(USER_STORAGE_KEY) as strin
 }
 
 ]
+
 localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(USERS))
 
 @Injectable({
