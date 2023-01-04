@@ -1,0 +1,25 @@
+.contact-filter{
+    width: 100%;
+    background-color: #151515dd;
+    width: 100%;
+    padding-inline: $layout-margin;
+
+    input{
+        @include transparent(white);
+        padding-block: 10px;
+        flex-grow: 2;
+    }
+    
+    button{
+        @include transparent(white);
+        height: inherit;
+        width: 50px;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #ffffff50;
+            color: $primary-gold;
+        }
+    }
+}

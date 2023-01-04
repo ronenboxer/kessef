@@ -1,0 +1,47 @@
+.contact-preview {
+    cursor: pointer;
+    color: white;
+    background-color: #00000045;
+    border: 1px outset #66666679;
+    padding: 10px $layout-margin;
+    width: 100%;
+
+    &:hover {
+        color: $primary-gold;
+        background-color: #00000060;
+        text-decoration: none;
+
+        .contact-avatar {
+            opacity: .75;
+        }
+    }
+
+    .contact-avatar {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        padding: 3px;
+        background-color: rgba($color: #fff, $alpha: .5);
+        margin-inline-end: 24px;
+    }
+
+    .mini-details {
+        .contact-name {
+            font-size: 1.3rem;
+            margin-block: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        .phone {
+            color: #ccccccaa;
+        }
+
+        .email {
+            color: #8799b9;
+        }
+    }
+
+}

@@ -1,0 +1,53 @@
+.statistics-page {
+    .actions {
+        width: 100%;
+        padding-inline: $layout-margin;
+        margin-block: 20px;
+
+
+        .statistics-control {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            font-size: .9rem;
+            margin-top: 10px;
+            border: .8px solid $primary-gold;
+
+            >* {
+                height: 30px;
+            }
+
+            .label {
+                border-bottom: .8px solid $primary-gold;
+                border-inline-end: .8px solid $primary-gold;
+            }
+
+            .btn-statistics {
+                font-size: .9rem;
+                cursor: pointer;
+                @include transparent(white);
+                background-color: rgba(47, 47, 47, 0.565);
+
+                &:hover {
+                    color: $primary-gold;
+                }
+
+                &.active {
+                    background-color: rgba(21, 21, 21, 0.5647058824);
+                    color: $primary-gold;
+                    pointer-events: none;
+                }
+            }
+        }
+
+        @media (min-width:540px) {
+            .statistics-control{
+                grid-template-columns: repeat(6, 1fr);
+                .label {
+                    border-bottom:none;
+                }
+            }
+        }
+    }
+
+}
